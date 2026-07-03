@@ -1,104 +1,105 @@
-name	first-principles
-description	Use first-principles thinking to explain a concept by tracing back to the original problem it solves and the design inevitability it embodies
-argument-hint	<concept>
-effort	medium
+---
+name: first-principles
+description: Understand a concept by tracing it back to the original problem it solves and deriving its design from first principles
+argument-hint: <concept>
+effort: medium
+---
 
 # Understand by First Principles
 
-Break down any concept by starting from the pain point that made its existence necessary. Instead of memorizing what something is, you’ll understand **why it must be exactly the way it is**.
+Break down any concept by starting from the pain point that made its existence necessary. Instead of memorizing what something is, you'll understand **why it must be exactly the way it is**.
 
 ## Usage
 
 ```
-/first-principles CSRF tokens
-/first-principles SameSite cookies
-/first-principles --deep OAuth 2.0
-/first-principles --quick prototypal inheritance
+/first-principles React hooks         # Understand why React hooks exist
+/first-principles JavaScript closures # Understand closures from first principles
+/first-principles database indexes    # Understand why indexes are designed this way
+/first-principles --deep OAuth 2.0    # In-depth first-principles explanation
 ```
 
 ## Instructions
 
-1. **Start with the world before it existed** – What was the concrete problem, impossibility, or dangerous inefficiency that people faced?
-2. **Identify the core contradiction** – Why couldn’t existing tools or mental models solve that problem? What trade-off was forced?
-3. **Extract the fundamental purpose** – Capture in one sentence the *non-negotiable reason* this concept had to be born.
-4. **Distill its essential attributes** – Which properties are truly part of its soul? Separate them from accidental implementation details.
-5. **Show how the design flows from those attributes** – Derive the modern shape of the concept (its mechanisms, restrictions, APIs) as a logical consequence of the attributes.
-6. **Use a minimal mental model** – Provide an analogy or simplified model that preserves the essence, not the surface features.
-7. **Spot common misunderstandings** – Explain which “obvious” assumptions break down because they ignore the original purpose.
-8. **Point to what builds on it** – Name the concepts that naturally extend or depend on this foundation.
+1. Start with **the world before it existed**: what concrete problem, impossibility, or dangerous inefficiency did people face?
+2. Identify the **core contradiction**: why couldn't existing tools or mental models solve that problem cleanly?
+3. State the **fundamental purpose**: the non-negotiable reason this concept had to be born
+4. Distill the **essential attributes**: the properties that belong to the concept's essence, not accidental implementation details
+5. Show how **the design follows** from those attributes: mechanisms, restrictions, APIs, syntax, or trade-offs
+6. Provide a **minimal mental model**: an analogy that preserves the concept's structure, not just surface similarity
+7. Highlight **common misunderstandings** that ignore the original purpose
+8. Suggest **next concepts** that build on this foundation
 
 ## Response Format
 
 ```markdown
 ## [Concept Name]
 
-**Core Purpose**: [One sentence that captures the non-negotiable reason for its existence.]
+**Core Purpose**: [One sentence that captures the non-negotiable reason for its existence]
 
 ### The World Before It
 
-[1-2 paragraphs describing the concrete problem, contradiction, or danger that existed without this concept.]
+[1-2 paragraphs describing the concrete problem, contradiction, or danger that existed without this concept]
 
 ### The Essential Attributes
 
-Decompose the concept into its unchanging properties:
-
-1. **Attribute 1**: [What it is and why it’s indispensable for the core purpose.]
-2. **Attribute 2**: [What it is and why it’s indispensable for the core purpose.]
+1. **[Attribute]**: [What it is and why it's indispensable for the core purpose]
+2. **[Attribute]**: [What it is and why it's indispensable for the core purpose]
 ...
 
 ### From Attributes to Design
 
-[Show how the current mechanisms, trade-offs, or APIs are inevitable consequences of the above attributes. Explain why alternative designs would violate one of them.]
+[Show how the current mechanisms, trade-offs, or APIs are inevitable consequences of the above attributes. Explain why alternative designs would violate one of them]
 
 ### Mental Model / Analogy
 
-[A simple, everyday analogy that preserves the structural relationship, not just a superficial similarity.]
+[A simple, everyday analogy that preserves the structural relationship, not just a superficial similarity]
 
 ### Common Misunderstandings
 
-- **Misunderstanding**: [Why it’s wrong when measured against the core purpose.]
-- **Misunderstanding**: [Why it’s wrong when measured against the core purpose.]
+1. **[Misunderstanding]**: [Why it's wrong when measured against the core purpose]
+2. **[Misunderstanding]**: [Why it's wrong when measured against the core purpose]
 
 ### Key Takeaways
 
-- [Bullet 1]
-- [Bullet 2]
-- [Bullet 3]
+- [Bullet point 1]
+- [Bullet point 2]
+- [Bullet point 3]
 
 ### Learn Next
 
-- [Related concept 1]: [How it builds on or relaxes one of the essential attributes.]
-- [Related concept 2]: [How it addresses a limitation that the original concept intentionally left open.]
+- [Related concept 1]: [how it builds on or relaxes one of the essential attributes]
+- [Related concept 2]: [how it addresses a limitation that the original concept intentionally left open]
 ```
 
 ## Depth Modes
 
 ### Default
 - One sentence core purpose
-- Short “World Before It”
+- Short "World Before It"
 - 2-4 essential attributes
 - One clear derivation to modern design
 - One mental model
 - 2 common misunderstandings
 
-### --deep
+### `--deep`
 - Historical evolution: what people tried before this concept and why they failed
-- Detailed trade-off analysis (when the attributes conflict)
+- Detailed trade-off analysis when attributes conflict
 - Edge cases that test the limits of the essential attributes
 - Comparison with alternatives that preserve the same attributes differently
-- How modern extensions (if any) respect or bend the original attributes
+- How modern extensions respect or bend the original attributes
 
-### --quick
+### `--quick`
 - Core purpose sentence
 - Bullet list of essential attributes
 - Single sentence derivation
+- No extras
 
 ## Adaptation Rules
 
 ### For Beginners
 - Use vivid everyday analogies before technical terms
 - Avoid nested abstractions; explain every new word immediately
-- Keep attribute list to 2 items maximum
+- Keep the attribute list to 2 items maximum
 - Show one concrete, minimal real-world scenario
 
 ### For Intermediates
@@ -115,59 +116,60 @@ Decompose the concept into its unchanging properties:
 
 ## Example Session
 
-User: `/first-principles CSRF tokens`
+```
+User: /first-principles React hooks
 
-Assistant:
+Claude: ## React Hooks
 
-## CSRF Tokens
-
-**Core Purpose**: To prove that a sensitive request was intentionally triggered by the user, not by a malicious third-party site that can piggyback on the user’s automatically sent credentials.
+**Core Purpose**: React hooks let function components keep stateful behavior and lifecycle-related logic without forcing developers back into classes or wrapper-based composition patterns.
 
 ### The World Before It
 
-Web applications relied on cookies to maintain user sessions. When you logged into your bank, the browser stored a session cookie and automatically attached it to every request to `bank.com`. An attacker quickly realized they could create a page on `evil.com` with a hidden form that pointed to `bank.com/transfer` – the browser would happily attach the real session cookie and execute the transfer. There was no way for the server to know whether the user genuinely intended that request or was merely tricked.
+Before hooks, React had two worlds. Function components were simple, readable, and easy to compose, but they could not hold state or lifecycle logic. Class components could hold state, but they introduced `this`, lifecycle fragmentation, and awkward reuse patterns.
+
+Developers reused stateful behavior through render props and higher-order components. These worked, but they created nested component trees and made data flow harder to see.
 
 ### The Essential Attributes
 
-1. **Unpredictability** – The token must be so random that an attacker cannot guess it. Without this, the whole scheme collapses.
-2. **User-intention binding** – The token must be something the legitimate user’s browser can send only when the user truly wants the action to happen. This means the token cannot be something that is automatically transmitted (like a cookie).
-3. **Server-side origin** – The token must be generated by the server so it can be verified, and must be delivered to the client in a way that an attacker’s page cannot read (due to the Same-Origin Policy).
+1. **Call-order identity**: React needs a stable way to associate state with a specific component across renders.
+2. **Function-level composition**: Stateful logic must be reusable without wrapping the component tree.
+3. **Render synchronization**: The mechanism must fit React's model where UI is recalculated from current state.
 
 ### From Attributes to Design
 
-- **Attribute 1** forces the token to be a cryptographically random string, not a sequential ID.
-- **Attribute 2** means the token must be embedded in the actual HTML page (e.g., as a hidden form field) or in a JavaScript-readable location that the attacker’s cross-origin page cannot access. It *cannot* be stored in a cookie that the browser attaches automatically.
-- **Attribute 3** leads to the classic double-submit pattern or synchronized token pattern: the server puts the token into the page, the client sends it back in the request body or a custom header, and the server compares them.
+Hooks are plain function calls because the goal is function-level composition. They must be called in the same order on every render because React uses call order to match each hook call to its stored state. This is why hooks cannot be called conditionally.
 
 ### Mental Model / Analogy
 
-Imagine a club that lets members in based on a stamp on the back of their hand (a cookie). Anyone with the stamp can enter. A malicious friend can drag a stamped person through the door without them even wanting to enter. A CSRF token is like the club requiring a one-time password that the member has to **actively say out loud** each time they enter – something the malicious friend cannot extract without the member’s cooperation.
+A component render is like reading a checklist in order. Each hook is a numbered slot on the checklist. If you skip a line sometimes, every later answer gets written into the wrong slot.
 
 ### Common Misunderstandings
 
-- **“I can just put the token in a cookie and read it from JavaScript”** – That violates Attribute 2: cookies are automatically sent on every request, so an attacker’s form submission would still include it. The token must be in a place that requires the user’s deliberate action to attach it.
-- **“CSRF tokens protect against all cross-site attacks”** – They only prove user intention. They don’t stop XSS (where an attacker can read the token from the page) or man-in-the-middle attacks.
+1. **Hooks are just normal functions**: They look like functions, but React gives them meaning by tracking their call order during rendering.
+2. **The rules of hooks are arbitrary**: The rules protect the identity system that lets React attach persistent state to repeated function calls.
 
 ### Key Takeaways
 
-- CSRF tokens exist because credentials can be automatically attached by the browser.
-- They work by adding a separate, non-guessable proof of intent that the attacker cannot read or correctly submit.
-- They are only one piece of the web security puzzle.
+- Hooks exist because React needed stateful logic inside function components.
+- Stable call order is the hidden constraint behind the rules of hooks.
+- Hooks replace many wrapper-based reuse patterns with direct function composition.
 
 ### Learn Next
 
-- **SameSite cookies**: A different approach that attacks the same problem by limiting when credentials are automatically sent, directly addressing the “auto-attach” behavior.
-- **CORS**: The browser mechanism that prevents cross-origin reads, which is what makes it safe to store tokens in-page without an attacker being able to read them.
+- Closures: explain why hooks capture values from a particular render
+- React rendering: explain why hooks rerun on every render instead of being initialized once
+```
 
 ## Topics Well-Suited for /first-principles
 
 | Category | Examples |
 |----------|----------|
-| Web Security | CSRF, CORS, SameSite, JWT, OAuth, content security policy |
-| Programming Languages | closures, prototypal inheritance, async/await, ownership in Rust |
-| System Design | caching, load balancing, database indexes, consensus protocols |
-| Protocols | HTTP, TLS, TCP, DNS, OAuth |
-| Architecture | microservices, event sourcing, reactive programming, MVC |
-| Mathematics / Logic | zero-knowledge proofs, public-key cryptography, monads |
+| **React** | hooks, context, suspense, server components |
+| **JavaScript** | closures, promises, event loop, prototypes |
+| **TypeScript** | generics, mapped types, utility types |
+| **Patterns** | SOLID, DI, composition, factories |
+| **Backend** | REST, GraphQL, authentication, caching |
+| **Database** | indexes, joins, transactions, normalization |
+| **DevOps** | containers, CI/CD, infrastructure as code |
 
 $ARGUMENTS
